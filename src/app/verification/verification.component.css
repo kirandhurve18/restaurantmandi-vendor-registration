@@ -1,0 +1,32 @@
+label {
+  color: #696f79;
+  font-weight: 400;
+}
+
+@media (max-width: 767px) {
+  .w-50 {
+    width: 100% !important; /* Use !important to override Bootstrap styles */
+  }
+  .up {
+    padding: 0 !important; /* Use !important to override Bootstrap styles */
+  }
+}
+.wayuLogo {
+  width: 5rem;
+  height: 5rem;
+}
+/* placeholder color */
+::placeholder {
+  color: #b0bac8;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

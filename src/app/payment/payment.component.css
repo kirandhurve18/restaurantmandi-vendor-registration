@@ -1,0 +1,49 @@
+@media (max-width: 767px) {
+  .w-50 {
+    width: 100% !important; /* Use !important to override Bootstrap styles */
+  }
+  .up {
+    padding: 0 !important; /* Use !important to override Bootstrap styles */
+  }
+}
+
+.selected {
+  background-color: #1565d8;
+  color: #fff;
+  border: 2px solid;
+  cursor: pointer;
+}
+
+.selected img {
+  filter: brightness(0) invert(1);
+}
+
+.payment-method {
+  padding: 5px;
+  margin-top: 2px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  border: 1px solid rgb(77, 77, 77);
+  cursor: pointer;
+}
+
+/* .payment-option {
+  padding: 1px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  gap: 2px;
+  border: 1px solid black;
+  border-radius: 10px;
+} */
+
+/* .bgImage{
+  background-image: url('../../assets/images/Frame 4.png');
+  background-size: contain;
+
+} */

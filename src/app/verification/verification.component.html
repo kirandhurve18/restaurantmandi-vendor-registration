@@ -1,0 +1,232 @@
+<div class="container-fluid">
+  <div *ngIf="loading" class="">
+    <div class="row">
+      <!-- left side (visible only on desktop) -->
+      <div class="col-lg-12 only-desktop p-0 d-lg-block">
+        <div
+          class="d-flex flex-column align-items-center"
+          style="height: 100vh; background-color: #153075"
+        >
+          <div
+            class="my-auto d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              style="width: 60%"
+              class="img-fluid mb-2 mx-auto my-auto"
+              src="/assets/images/rest-mandi-logo.svg"
+              alt=""
+            />
+
+            <div
+              class="spinner-border text-light"
+              style="width: 3rem; height: 3rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div
+              class="spinner-grow text-light"
+              style="width: 3rem; height: 3rem"
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!loading">
+    <div class="row">
+      <!-- left side (visible only on desktop) -->
+      <div class="col-lg-5 only-desktop p-0 d-none d-lg-block">
+        <div
+          class="d-flex flex-column align-items-center"
+          style="height: 100vh; background-color: #153075"
+        >
+          <img
+            class="img-fluid w-100"
+            src="./assets/images/Isolation_Mode.png"
+            alt=""
+          />
+          <div
+            class="my-auto d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              style="width: 85%"
+              class="img-fluid mb-2 mx-auto my-auto mt-5"
+              src="./assets/images/rest-mandi-logo.svg"
+              alt=""
+            />
+          </div>
+          <img class="img-fluid w-100" src="./assets/images/Layer.png" alt="" />
+        </div>
+      </div>
+
+      <!-- right side (visible on all screens) -->
+      <div class="col-lg-7 col-md-12" style="height: 100vh">
+        <div class="container">
+          <div
+            class="d-flex justify-content-between justify-content-lg-end align-items center px-5 mt-3 up"
+          >
+            <div
+              class="d-flex justify-content-center align-items-center d-lg-none"
+              style="gap: 0.5rem; cursor: pointer"
+            >
+              <div
+                class="wayuLogo p-3 d-flex flex-column justify-content-center align-items-center"
+              >
+                <img
+                  class="img-fluid"
+                  style="width: 4rem; height: 4rem"
+                  src="./assets/images/rest-mandi-logo-sm.svg"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="">
+              <span
+                class="float-end p-0 m-0"
+                style="color: #bdbdbd; font-weight: 500"
+                >STEP 01/03</span
+              >
+              <br />
+              <p
+                class="float-end p-0 m-0"
+                style="color: #8692a6; font-weight: 600"
+              >
+                Email & Contact Verification
+              </p>
+            </div>
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <div class="w-50">
+              <h3 class="text-start mt-5">Join Us as Business!</h3>
+              <p class="text-start mb-3 p-0" style="color: #8692a6">
+                To begin this journey, tell us what type of account you’d be
+                opening.
+              </p>
+              <form (ngSubmit)="onSubmit()" [formGroup]="verificationForm">
+                <div class="col-md-12 col-12 mb-3">
+                  <label class="form-label" for="email">Email address*</label>
+                  <input
+                    type="email"
+                    class="form-control input-login p-2"
+                    id="email"
+                    placeholder="Enter email"
+                    name="email"
+                    formControlName="email"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      verificationForm.get('email')?.hasError('required') &&
+                      verificationForm.get('email')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    Email is required.
+                  </div>
+                  <div
+                    *ngIf="
+                      verificationForm.get('email')?.hasError('email') &&
+                      verificationForm.get('email')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    Please enter a valid email address.
+                  </div>
+                </div>
+                <div class="col-md-12 col-12 mb-3">
+                  <label class="form-label" for="email">Mobile number*</label>
+                  <input
+                    type="number"
+                    class="form-control input-login p-2"
+                    id="text"
+                    placeholder="Enter mobile number"
+                    name="mobile"
+                    formControlName="mobile"
+                    required
+                  />
+                  <div
+                    *ngIf="
+                      verificationForm.get('mobile')?.hasError('required') &&
+                      verificationForm.get('mobile')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    Mobile Number is required.
+                  </div>
+                  <div
+                    *ngIf="
+                      verificationForm.get('mobile')?.hasError('pattern') &&
+                      verificationForm.get('mobile')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    Please enter a valid 10-digit mobile number.
+                  </div>
+                </div>
+
+                <div class="col-md-12 col-12 mb-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    id="flexCheckDefault"
+                    name="termsConditions"
+                    formControlName="termsConditions"
+                    required
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    &nbsp; I agree to
+                    <span
+                      class="text-primary hover-underline cursor-pointer"
+                      style="cursor: pointer"
+                      (click)="openTermsAndConditions()"
+                      >terms & conditions</span
+                    >
+                  </label>
+                  <div
+                    *ngIf="
+                      verificationForm
+                        .get('termsConditions')
+                        ?.hasError('requiredTrue') &&
+                      verificationForm.get('termsConditions')?.touched
+                    "
+                    class="text-danger"
+                  >
+                    You must agree to the
+                    <span
+                      class="text-primary hover-underline cursor-pointer"
+                      style="cursor: pointer"
+                      (click)="openTermsAndConditions()"
+                      >terms and conditions</span
+                    >
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-secondary w-100 py-3 mt-3"
+                  style="background-color: #1565d8"
+                >
+                  Register Account
+                </button>
+              </form>
+              <div class="mt-3 d-flex">
+                <small
+                  class="text-center mx-auto"
+                  style="color: #8692a6; font-size: 12px"
+                  ><i class="fa-solid fa-lock"></i> Your Info is safely
+                  secured</small
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

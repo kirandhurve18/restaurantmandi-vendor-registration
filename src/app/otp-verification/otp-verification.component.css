@@ -1,0 +1,24 @@
+label {
+  color: #696f79;
+  font-weight: 400;
+}
+
+@media (max-width: 767px) {
+  .w-50 {
+    width: 100% !important; /* Use !important to override Bootstrap styles */
+  }
+  .up {
+    padding: 0 !important; /* Use !important to override Bootstrap styles */
+  }
+}
+
+.icon-wrapper {
+  position: absolute;
+  top: 71%; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  transform: translateY(-50%);
+}
+
+::placeholder {
+  color: #b0bac8;
+}

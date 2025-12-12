@@ -1,0 +1,388 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- left side (visible only on desktop) -->
+    <div class="col-lg-5 only-desktop p-0 d-none d-lg-block">
+      <div
+        class="d-flex flex-column align-items-center"
+        style="height: 100vh; background-color: #153075"
+      >
+        <img
+          class="img-fluid w-100"
+          src="./assets/images/Isolation_Mode.png"
+          alt=""
+        />
+        <div
+          class="my-auto d-flex flex-column justify-content-center align-items-center"
+        >
+          <img
+            style="width: 85%"
+            class="img-fluid mb-2 mx-auto my-auto mt-5"
+            src="./assets/images/rest-mandi-logo.svg"
+            alt=""
+          />
+        </div>
+        <img class="img-fluid w-100" src="./assets/images/Layer.png" alt="" />
+      </div>
+    </div>
+
+    <!-- right side (visible on all screens) -->
+    <div class="col-lg-7 col-md-12" style="height: 100vh">
+      <div class="container">
+        <div
+          class="d-flex justify-content-between align-items center px-5 mt-3 up"
+        >
+          <div
+            routerLink="/otp-verification"
+            class="d-flex justify-content-center align-items-center"
+            style="gap: 0.5rem; cursor: pointer"
+          >
+            <i class="fa fa-chevron-left" style="color: #696f79"></i>
+            <span class="" style="color: #696f79">Back</span>
+          </div>
+          <div class="">
+            <span
+              class="float-end p-0 m-0"
+              style="color: #bdbdbd; font-weight: 500"
+              >STEP 03/04</span
+            >
+            <br />
+            <p
+              class="float-end p-0 m-0"
+              style="color: #8692a6; font-weight: 600"
+            >
+              Business Info
+            </p>
+          </div>
+        </div>
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="w-50">
+            <h3 class="text-start mt-5">Register Business Account!</h3>
+            <p class="text-start mb-3 p-0" style="color: #8692a6">
+              For the purpose of industry regulation, your details are required.
+            </p>
+            <form [formGroup]="businessForm" (ngSubmit)="onSubmit()">
+              <div>
+                <p>Do you have a GST Number?</p>
+                <div class="d-flex gap-4 align-items-center mb-3">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      value="true"
+                      id="gstYes"
+                      formControlName="hasGstin"
+                    />
+                    <label class="form-check-label" for="gstYes">Yes</label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      value="false"
+                      id="gstNo"
+                      formControlName="hasGstin"
+                    />
+                    <label class="form-check-label" for="gstNo">No</label>
+                  </div>
+                </div>
+              </div>
+              <!-- GST Number -->
+              <div
+                class="col-md-12 col-12 mb-3"
+                *ngIf="businessForm.get('hasGstin')?.value === 'true'"
+              >
+                <label class="form-label" for="gstNumberInput"
+                  >GST Number*</label
+                >
+                <div class="d-flex gap-2 position-relative">
+                  <input
+                    type="text"
+                    class="form-control input-login p-2"
+                    id="gstNumberInput"
+                    placeholder="Enter GST Number"
+                    formControlName="gstNumber"
+                    (input)="onGstNumberInput($event)"
+                  />
+                  <button
+                    [disabled]="isGstVerified || isGstVerifiedLoading"
+                    (click)="verifyGstNumber()"
+                    type="button"
+                    class="btn position-absolute end-0 d-flex align-items-center justify-content-center"
+                    style="
+                      top: 50%;
+                      transform: translateY(-50%);
+                      height: 24px;
+                      padding: 0 12px;
+                      font-size: 12px;
+                      margin-right: 12px;
+                      color: #fff;
+                    "
+                    [ngClass]="{
+                      'btn-primary': !isGstVerified
+                    }"
+                    [ngStyle]="{
+                      'background-color': isGstVerified ? '#006400' : ''
+                    }"
+                  >
+                    {{
+                      isGstVerified
+                        ? "Verified"
+                        : isGstVerifiedLoading
+                        ? "Verifying"
+                        : "Verify"
+                    }}
+                    <span
+                      *ngIf="isGstVerifiedLoading"
+                      class="spinner-border spinner-border-sm ms-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                  </button>
+                </div>
+
+                <div *ngIf="isFieldInvalid('gstNumber')" class="text-danger">
+                  <span
+                    *ngIf="businessForm.get('gstNumber')?.hasError('required')"
+                  >
+                    GST Number is required
+                  </span>
+                  <span
+                    *ngIf="businessForm.get('gstNumber')?.hasError('pattern')"
+                  >
+                    Please enter a valid 15-character GST number
+                  </span>
+                </div>
+              </div>
+              <!--No GST Number -->
+              <div
+                class="col-md-12 col-12 mb-3"
+                *ngIf="businessForm.get('hasGstin')?.value === 'false'"
+              >
+                <label class="form-label" for="gstNumberInput"
+                  >You will need temporary GST Number to list your
+                  business*</label
+                >
+                <button
+                  (click)="generateTemporaryGstNumber()"
+                  class="btn generate-gst-number"
+                >
+                  Generate Temporary GST Number
+                </button>
+                <div class="d-flex gap-2 position-relative">
+                  <input
+                    type="text"
+                    class="form-control input-login p-2"
+                    id="gstNumberInput"
+                    placeholder="Enter Temporary GST Number"
+                    formControlName="gstNumber"
+                  />
+                </div>
+
+                <div *ngIf="isFieldInvalid('gstNumber')" class="text-danger">
+                  GST Number is required
+                </div>
+              </div>
+
+              <!-- Business Name -->
+              <div class="col-md-12 col-12 mb-3">
+                <label class="form-label" for="businessName"
+                  >Business Name*</label
+                >
+                <input
+                  type="text"
+                  class="form-control input-login p-2"
+                  id="businessName"
+                  placeholder="Enter business name"
+                  formControlName="businessName"
+                />
+                <div *ngIf="isFieldInvalid('businessName')" class="text-danger">
+                  Business Name is required
+                </div>
+              </div>
+              <!-- Business Address -->
+              <div class="col-md-12 col-12 mb-3">
+                <label class="form-label" for="businessAddress"
+                  >Business Address*</label
+                >
+                <input
+                  type="text"
+                  class="form-control input-login p-2"
+                  id="businessAddress"
+                  placeholder="Enter address"
+                  formControlName="address"
+                />
+                <div *ngIf="isFieldInvalid('address')" class="text-danger">
+                  Business Address is required
+                </div>
+              </div>
+              <!-- Business Number -->
+              <div class="col-md-12 col-12 mb-3">
+                <label class="form-label" for="businessNumber"
+                  >Alternate Mobile Number</label
+                >
+                <input
+                  type="number"
+                  class="form-control input-login p-2"
+                  id="businessNumber"
+                  placeholder="Enter alternate mobile number"
+                  formControlName="businessNumber"
+                />
+                <!-- <div
+                  *ngIf="isFieldInvalid('businessNumber')"
+                  class="text-danger"
+                >
+                  Business Number is required
+                </div> -->
+              </div>
+
+              <!-- Business Categories -->
+              <div class="col-md-12 col-12 mb-3 position-relative">
+                <label class="form-label" for="businessCategories"
+                  >Business Categories*</label
+                >
+                <!-- Custom Dropdown Input -->
+                <div
+                  class="form-control d-flex justify-content-between align-items-center"
+                  style="cursor: pointer; min-height: 38px"
+                  (click)="toggleCategoryDropdown()"
+                >
+                  <div
+                    class="d-flex flex-wrap align-items-center gap-1"
+                    style="flex: 1"
+                  >
+                    <!-- Selected Categories as Tags -->
+                    <span
+                      *ngFor="
+                        let categoryId of selectedCategories;
+                        trackBy: trackByCategoryId
+                      "
+                      class="badge bg-secondary d-flex align-items-center gap-1"
+                      style="font-size: 12px; padding: 4px 8px"
+                      (click)="$event.stopPropagation()"
+                    >
+                      {{ getCategoryName(categoryId) }}
+                      <i
+                        class="fa-solid fa-times"
+                        style="cursor: pointer; font-size: 10px"
+                        (click)="removeCategory(categoryId)"
+                      ></i>
+                    </span>
+
+                    <!-- Placeholder when no categories selected -->
+                    <span
+                      *ngIf="selectedCategories.length === 0"
+                      style="color: #6c757d"
+                    >
+                      Select business categories
+                    </span>
+                  </div>
+
+                  <i
+                    class="fa-solid"
+                    [ngClass]="
+                      isCategoryDropdownOpen
+                        ? 'fa-chevron-up'
+                        : 'fa-chevron-down'
+                    "
+                    style="margin-left: 8px"
+                  ></i>
+                </div>
+
+                <!-- Dropdown with Checkboxes -->
+                <div
+                  *ngIf="isCategoryDropdownOpen"
+                  class="category-dropdown-menu"
+                  style="
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    right: 0;
+                    z-index: 1000;
+                    background: white;
+                    border: 1px solid #ced4da;
+                    border-radius: 0.25rem;
+                    max-height: 250px;
+                    overflow-y: auto;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                    margin-top: 2px;
+                  "
+                >
+                  <div
+                    *ngFor="let category of categoriesList; let i = index"
+                    class="form-check px-3 py-2"
+                    style="cursor: pointer; margin-left: 12px"
+                    (click)="$event.stopPropagation()"
+                  >
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      [id]="'category_' + i"
+                      [value]="category._id"
+                      (change)="onCategoryChange($event, category._id)"
+                      [checked]="isCategorySelected(category._id)"
+                      style="cursor: pointer"
+                    />
+                    <label
+                      class="form-check-label"
+                      [for]="'category_' + i"
+                      style="cursor: pointer; user-select: none"
+                    >
+                      {{ category.categoryName }}
+                    </label>
+                  </div>
+                  <div
+                    *ngIf="categoriesList.length === 0"
+                    class="px-3 py-2 text-muted"
+                  >
+                    No categories available
+                  </div>
+                </div>
+
+                <div
+                  *ngIf="isFieldInvalid('categories')"
+                  class="text-danger mt-1"
+                >
+                  Please select at least one category
+                </div>
+              </div>
+
+              <!-- Business Website -->
+              <div class="col-md-12 col-12 mb-3">
+                <label class="form-label" for="businessWebsite"
+                  >Business Website (Optional)</label
+                >
+                <input
+                  type="text"
+                  class="form-control input-login p-2"
+                  id="businessWebsite"
+                  placeholder="Enter website url"
+                  formControlName="website"
+                />
+                <div *ngIf="isFieldInvalid('website')" class="text-danger">
+                  Business Website is required
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="btn btn-secondary w-100 py-3 mt-4"
+                style="background-color: #1565d8"
+              >
+                Save & Continue
+              </button>
+            </form>
+            <div class="mt-3 d-flex">
+              <small class="text-center mx-auto" style="color: #8692a6"
+                ><i class="fa-solid fa-lock"></i> Your Info is safely
+                secured</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

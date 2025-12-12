@@ -1,0 +1,154 @@
+<div class="container-fluid">
+  <div class="row">
+    <!-- left side (visible only on desktop) -->
+    <div class="col-lg-5 only-desktop p-0 d-none d-lg-block">
+      <div
+        class="d-flex flex-column align-items-center"
+        style="height: 100vh; background-color: #153075"
+      >
+        <img
+          class="img-fluid w-100"
+          src="./assets/images/Isolation_Mode.png"
+          alt=""
+        />
+        <div
+          class="my-auto d-flex flex-column justify-content-center align-items-center"
+        >
+          <img
+            style="width: 85%"
+            class="img-fluid mb-2 mx-auto my-auto mt-5"
+            src="./assets/images/rest-mandi-pan-ind.svg"
+            alt=""
+          />
+        </div>
+        <img class="img-fluid w-100" src="./assets/images/Layer.png" alt="" />
+      </div>
+    </div>
+
+    <!-- right side (visible on all screens) -->
+    <div class="col-lg-7 col-md-12" style="height: 100vh">
+      <div class="container bgImage">
+        <div
+          class="d-flex justify-content-between align-items center px-5 mt-3 up"
+        >
+          <div
+            routerLink="/business-details"
+            class="d-flex justify-content-center align-items-center"
+            style="gap: 0.5rem; cursor: pointer"
+          >
+            <i class="fa fa-chevron-left" style="color: #696f79"></i>
+            <span class="" style="color: #696f79">Back</span>
+          </div>
+          <div class="">
+            <span
+              class="float-end p-0 m-0"
+              style="color: #bdbdbd; font-weight: 500"
+              >STEP 04/04</span
+            >
+            <br />
+            <p
+              class="float-end p-0 m-0"
+              style="color: #8692a6; font-weight: 600"
+            >
+              Payment
+            </p>
+          </div>
+        </div>
+        <div
+          class="d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="w-50">
+            <h3 class="text-start mt-5">Complete Your Profile!</h3>
+            <p class="text-start mb-3 p-0" style="color: #8692a6">
+              Pay annual subscription fee and onboard your Business on
+              Restaurant Mandi.
+            </p>
+            <form>
+              <div class="mb-3">
+                <label
+                  class="form-label"
+                  style="color: #696f79; font-weight: 500"
+                  >Payment</label
+                >
+                <div
+                  class="shadow p-3 d-flex justify-content-between align-items-center rounded bg-white"
+                  style="border: 1px solid #153075"
+                >
+                  <span style="color: #494949; font-weight: 700"
+                    >Total pay</span
+                  >
+                  <span style="color: #494949; font-weight: 700"
+                    >₹ 11,798.82</span
+                  >
+                </div>
+              </div>
+              <div>
+                <button
+                  class="btn mt-1"
+                  (click)="showDetails = !showDetails"
+                  style="color: #484848"
+                >
+                  {{ showDetails ? "Hide Details" : "Show Details" }}
+                  <i
+                    class="fa-solid"
+                    [ngClass]="{
+                      'fa-chevron-down': !showDetails,
+                      'fa-chevron-up': showDetails
+                    }"
+                  ></i>
+                </button>
+              </div>
+              <div class="d-flex flex-column mt-2 p-3 card" *ngIf="showDetails">
+                <div class="d-flex justify-content-between">
+                  <span class="fw-bold" style="font-size: 13px"
+                    >Annual Fee</span
+                  >
+                  <span>
+                    <span
+                      class="fw-bold mx-3"
+                      style="font-size: 13px; color: red"
+                      ><del>₹ 19,999.00</del></span
+                    >
+                    <span class="fw-bold" style="font-size: 13px"
+                      >₹ 9999.00</span
+                    >
+                  </span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span class="fw-bold" style="font-size: 13px"
+                    >GST & Taxes (18%)
+                  </span>
+                  <span class="fw-bold" style="font-size: 13px">₹ 1799.82</span>
+                </div>
+                <hr />
+                <div class="d-flex justify-content-between">
+                  <span style="color: #494949; font-weight: 700"
+                    >Total pay</span
+                  >
+                  <span style="color: #494949; font-weight: 700"
+                    >₹ 11,798.82</span
+                  >
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                class="btn btn-secondary w-100 py-3 mt-4"
+                style="background-color: #1565d8"
+                (click)="initiatePayment()"
+              >
+                Pay
+              </button>
+            </form>
+            <div class="mt-3 d-flex">
+              <small class="text-center mx-auto" style="color: #8692a6"
+                ><i class="fa-solid fa-lock"></i> Your Info is safely
+                secured</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

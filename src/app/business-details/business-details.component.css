@@ -1,0 +1,106 @@
+label {
+  color: #696f79;
+  font-weight: 400;
+}
+
+select {
+  color: #696f79;
+}
+
+small {
+  color: #696f79;
+  font-size: 12px;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .w-50 {
+    width: 100% !important; /* Use !important to override Bootstrap styles */
+  }
+  .up {
+    padding: 0 !important; /* Use !important to override Bootstrap styles */
+  }
+}
+
+.generate-gst-number {
+  display: flex;
+  justify-self: flex-end;
+  color: #1565d8;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+/* Category Dropdown Styles */
+.category-dropdown-menu {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-dropdown-menu .form-check:hover {
+  background-color: #f8f9fa;
+}
+
+.category-dropdown-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.category-dropdown-menu::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.category-dropdown-menu::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.category-dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Category Tags Styles */
+.badge {
+  transition: all 0.2s ease;
+}
+
+.badge:hover {
+  /* background-color: #0d6efd !important;
+  transform: scale(1.05); */
+}
+
+.badge .fa-times {
+  transition: color 0.2s ease;
+}
+
+.badge .fa-times:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+::placeholder {
+  color: #b0bac8;
+}
