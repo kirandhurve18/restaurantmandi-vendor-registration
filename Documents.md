@@ -57,8 +57,9 @@ server {
 ````
 # also make the changes in the src/environment/ -
 
-<img width="1028" height="147" alt="image" src="https://github.com/user-attachments/assets/bd05a1ac-e390-4e3c-9fdd-efc51a678e95" />
+In base URL add the backend IP 
 
+<img width="1063" height="153" alt="image" src="https://github.com/user-attachments/assets/568fab52-cf5e-4b23-b181-bd5019e5a03e" />
 
 
 
